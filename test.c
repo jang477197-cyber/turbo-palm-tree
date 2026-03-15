@@ -1,27 +1,25 @@
 #include <stdio.h>
+#include <stdint.h>
 
 int main() {
 
-    int x = -1;
+    float input;
 
-    /*
-    대부분의 현대 PC는 2의 보수(two's complement)를 사용한다.
+    scanf_s("%f", &input);
 
-    2의 보수 시스템에서 -1은 모든 비트가 1이다.
-    즉, -1의 비트 패턴은 다음과 같다.
+    int16_t fixed = (int16_t)(input * 256);
 
-    11111111 11111111
+    for (int i = 15; i >= 8; i--) {
+        printf("%d", (fixed >> i) & 1);
+    }
 
-    또한 ~0 연산은 모든 비트를 1로 만든다.
+    printf(".");
 
-    따라서 -1 == ~0 이면
-    현재 시스템은 2의 보수 표현 방식을 사용한다고 판단할 수 있다.
-    */
+    for (int i = 7; i >= 0; i--) {
+        printf("%d", (fixed >> i) & 1);
+    }
 
-    if (x == ~0)
-        printf("2의 보수입니다.\n");
-    else
-        printf("1의 보수입니다.\n");
+    printf("\n");
 
     return 0;
 }
